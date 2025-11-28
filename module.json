@@ -31,6 +31,6 @@
   },
   "socket": true,
   "url": "https://github.com/jeffisowens/pf2e-exploration-activities",
-  "manifest": "https://raw.githubusercontent.com/jeffisowens/pf2e-exploration-activities/main/module.json",
+  "manifest": "https://raw.githubusercontent.com/jeffisowens/pf2e-exploration-activities/refs/heads/main/module.json",
   "download": "https://raw.githubusercontent.com/jeffisowens/pf2e-exploration-activities/main/pf2e-exploration-activities.zip"
 }

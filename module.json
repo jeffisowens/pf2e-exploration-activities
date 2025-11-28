@@ -1,7 +1,7 @@
 {
+  "id": "pf2e-exploration-activities",
   "name": "pf2e-exploration-activities",
   "title": "PF2e Exploration Activities",
-  "id": "pf2e-exploration-activities",
   "description": "Exploration Activity Macros, linked to Exploration Effects",
   "authors": [{ "name": "IcyLemon, jeffisowens" }],
   "version": "2.0.0",

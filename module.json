@@ -2,11 +2,11 @@
   "name": "pf2e-exploration-activities",
   "title": "PF2e Exploration Activities",
   "description": "Exploration Activity Macros, linked to Exploration Effects",
-  "authors": [{ "name": "IcyLemon" }],
-  "version": "1.2.1",
+  "authors": [{ "name": "IcyLemon, jeffisowens" }],
+  "version": "2.0.0",
   "compatibility": {
-    "minimum": "10",
-    "verified": "10"
+    "minimum": "13",
+    "verified": "13"
   },
   "esmodules": ["scripts/init.js", "scripts/scripts.js"],
   "packs": [
@@ -23,13 +23,13 @@
       {
         "id": "pf2e",
         "compatibility": {
-          "minimum": "4.0.0"
+          "minimum": "7.7.4"
         }
       }
     ]
   },
   "socket": true,
-  "url": "https://github.com/IcyLemonZ/pf2e-exploration-activities",
-  "manifest": "https://raw.githubusercontent.com/IcyLemonZ/pf2e-exploration-activities/main/module.json",
-  "download": "https://raw.githubusercontent.com/IcyLemonZ/pf2e-exploration-activities/main/pf2e-exploration-activities.zip"
+  "url": "https://github.com/jeffisowens/pf2e-exploration-activities",
+  "manifest": "https://raw.githubusercontent.com/jeffisowens/pf2e-exploration-activities/main/module.json",
+  "download": "https://raw.githubusercontent.com/jeffisowens/pf2e-exploration-activities/main/pf2e-exploration-activities.zip"
 }

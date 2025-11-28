@@ -3,8 +3,8 @@
 
 export function explorationActivity(actor, tokenID) {
   let token = canvas.tokens.get(tokenID)
-  let content = ''
   let selectedActivity
+
   let activities = {
     'Avoid Notice':
       '@Compendium[pf2e.actionspf2e.IE2nThCmoyhQA0Jn]{Avoid Notice}',
@@ -31,7 +31,7 @@ export function explorationActivity(actor, tokenID) {
     'Cover Tracks':
       '@Compendium[pf2e.actionspf2e.SB7cMECVtE06kByk]{Cover Tracks}',
     'Decipher Writing':
-      '@Compendium[pf2e.actionspf2e.d9gbpiQjChYDYA2L]{Decypher Writing}',
+      '@Compendium[pf2e.actionspf2e.d9gbpiQjChYDYA2L]{Decipher Writing}',
     'Gather Information':
       '@Compendium[pf2e.actionspf2e.plBGdZhqq5JBl1D8]{Gather Information}',
     'Identify Alchemy':
@@ -50,16 +50,19 @@ export function explorationActivity(actor, tokenID) {
       '@Compendium[pf2e.actionspf2e.1kGNdIIhuglAjIp9]{Treat Wounds}',
   }
 
-  //contentUpdate();
   const dialogStyle = `
   <style>
-    .my-class {
-      margin-bottom: 12px; 
+    .pf2e-exploration-select {
+      margin-bottom: 12px;
+      padding: 8px;
+      border-radius: 4px;
     }
   </style>`
-  content = dialogStyle
-  content += `<div id="pf2e-explorationActivity-scripts-content"><label for="activity">Choose an activity: </label>
-    <select class ="my-class"  name="activity" id="activity">`
+
+  let content = dialogStyle
+  content += `<div id="pf2e-explorationActivity-scripts-content">
+    <label for="activity">Choose an activity: </label>
+    <select class="pf2e-exploration-select" name="activity" id="activity">`
   content += `<optgroup label="common">`
   for (let i = 0; i < Object.keys(activities).length; i++) {
     content += `<option value="${activities[Object.keys(activities)[i]]}">${
@@ -76,38 +79,41 @@ export function explorationActivity(actor, tokenID) {
   content += `</optgroup>`
   content += `</select></div>`
 
-  let d = new Dialog({
-    title: 'Exploration Activity',
-    content,
-    buttons: {
-      select: {
-        icon: '',
-        label: 'Select',
-        callback: (html) => {
-          selectedActivity =
-            '<h3>I will <b>' + html.find('#activity')[0].value + '</b></h3>'
-          generateChat(actor, selectedActivity)
-          applyEffect(actor, html.find('#activity')[0].value)
-        },
-      },
-      cancel: {
-        icon: "<i class='fas fa-lock-times'></i>",
-        label: 'Cancel',
-        callback: () => {
-          selectedActivity = '<h3>I will do nothing in particular.</h3>'
-          generateChat(actor, selectedActivity)
-        },
-      },
+  // Create DialogV2 instance
+  const dialog = new foundry.applications.api.DialogV2({
+    window: {
+      title: 'Exploration Activity',
+      icon: 'fas fa-compass',
     },
+    content,
+    buttons: [
+      {
+        action: 'select',
+        label: 'Select',
+        callback: async (event) => {
+          const selectElement = event.closest('[data-application-part="content"]').querySelector('#activity')
+          selectedActivity = '<h3>I will <b>' + selectElement.value + '</b></h3>'
+          await generateChat(actor, selectedActivity)
+          await applyEffect(actor, selectElement.value)
+        },
+      },
+      {
+        action: 'cancel',
+        label: 'Cancel',
+        callback: async (event) => {
+          selectedActivity = '<h3>I will do nothing in particular.</h3>'
+          await generateChat(actor, selectedActivity)
+        },
+      },
+    ],
   })
-  d.options.width = 250
-  d.position.width = 250
-  d.render(true)
+
+  dialog.render(true)
 
   // used to create the chat messages
   async function generateChat(actor, output) {
     let chatData = {
-      user: game.user._id,
+      user: game.user.id,
       speaker: {
         alias: actor.name,
       },
@@ -130,7 +136,7 @@ export function explorationActivity(actor, tokenID) {
       'Detect Magic':
         'Compendium.pf2e-exploration-effects.exploration-effects.OjRHL0B4WAUUQc13',
       'Follow the Expert':
-        'ompendium.pf2e-exploration-effects.exploration-effects.V347nnVBGDrVWh7k',
+        'Compendium.pf2e-exploration-effects.exploration-effects.V347nnVBGDrVWh7k',
       Hustle:
         'Compendium.pf2e-exploration-effects.exploration-effects.vNUrKvoOSvEnqzhM',
       Investigate:

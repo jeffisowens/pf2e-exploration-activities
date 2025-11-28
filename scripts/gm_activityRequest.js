@@ -16,7 +16,7 @@ if (tokens.length === 0) {
     let tokenID = token.id
     game.socket.emit('module.pf2e-exploration-activities', {
       operation: 'playerExplorationActivity',
-      actor,
+      actorUuid: actor.uuid,
       tokenID,
     })
   })
